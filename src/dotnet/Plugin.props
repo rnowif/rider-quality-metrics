@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <SdkVersion>2020.1.0</SdkVersion>
+
+    <Title>QualityMetrics</Title>
+    <Description>Calculates quality metrics: (coupling, cohesion, etc.)</Description>
+
+    <Authors>Renaud Humbert-Labeaumaz</Authors>
+    <Copyright>Copyright 2020-$([System.DateTime]::Now.Year) Renaud Humbert-Labeaumaz</Copyright>
+    <PackageTags>quality, metrics</PackageTags>
+
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+  </PropertyGroup>
+</Project>
