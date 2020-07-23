@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Compile Remove="test/**/*" />
+    <Compile Include="test\data\CSharp\ClassWithNoTtc.cs" />
   </ItemGroup>
 
 </Project>

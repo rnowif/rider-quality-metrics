@@ -8,7 +8,7 @@ namespace ReSharperPlugin.QualityMetrics.Cohesion
         public int NumberOfDirectConnections { get; private set; }
         public int NumberOfPossibleConnections { get; private set; }
         public int PercentageValue => (int) (100 * Value);
-        public double Value => NumberOfDirectConnections / (double) NumberOfPossibleConnections;
+        public double Value => NumberOfPossibleConnections == 0 ? 1 : NumberOfDirectConnections / (double) NumberOfPossibleConnections;
         public bool IsError => PercentageValue < ErrorThreshold;
         public bool IsWarning => PercentageValue >= ErrorThreshold && PercentageValue < WarningThreshold;
         public bool IsOk => PercentageValue >= WarningThreshold;
