@@ -6,14 +6,10 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Rider.Model;
 using JetBrains.TextControl.DocumentMarkup;
 using ReSharperPlugin.QualityMetrics;
+using ReSharperPlugin.QualityMetrics.Cohesion;
 using Severity = JetBrains.ReSharper.Feature.Services.Daemon.Severity;
 
-[assembly: RegisterHighlighter(
-    CohesionCodeInsightHighlight.HighlightAttributeId,
-    EffectType = EffectType.NONE,
-    TransmitUpdates = true,
-    Layer = HighlighterLayer.SYNTAX + 1,
-    GroupId = HighlighterGroupIds.HIDDEN)]
+[assembly: RegisterHighlighter(CohesionCodeInsightHighlight.HighlightAttributeId, EffectType = EffectType.NONE, TransmitUpdates = true, Layer = HighlighterLayer.SYNTAX + 1, GroupId = HighlighterGroupIds.HIDDEN)]
 
 namespace ReSharperPlugin.QualityMetrics
 {
@@ -40,35 +36,18 @@ namespace ReSharperPlugin.QualityMetrics
         public ICollection<CodeLensRelativeOrdering> RelativeOrderings => new CodeLensRelativeOrdering[] {new CodeLensRelativeOrderingFirst()};
     }
 
-
     [StaticSeverityHighlighting(Severity.INFO, HighlightingGroupIds.CodeInsightsGroup, AttributeId = HighlightAttributeId)]
     public class CohesionCodeInsightHighlight : CodeInsightsHighlighting
     {
         public const string HighlightAttributeId = "Cohesion Code Insight Highlight";
-        private const int ErrorThreshold = 50;
-        private const int WarningThreshold = 50;
 
-        private static string GetLensText(int tightClassCohesion)
-            => (tightClassCohesion < ErrorThreshold
-                ? "non-cohesive"
-                : tightClassCohesion < WarningThreshold
-                    ? "quite cohesive"
-                    : "cohesive") + $" ({tightClassCohesion / 100.0})";
+        private static string GetLensText(TightClassCohesion tightClassCohesion)
+            => (tightClassCohesion.IsError ? "non-cohesive" : tightClassCohesion.IsWarning ? "poorly cohesive" : "quite cohesive") + $" ({tightClassCohesion.Value})";
 
-        private static string GetMoreText(int tightClassCohesion)
-            => $"Cohesion (TCC) of {tightClassCohesion / 100.0}";
+        private static string GetMoreText(TightClassCohesion tightClassCohesion) => $"Cohesion (TCC) of {tightClassCohesion.Value}";
 
-        public CohesionCodeInsightHighlight(
-            ITypeMemberDeclaration declaration,
-            int tightClassCohesion,
-            ICodeInsightsProvider provider)
-            : base(
-                declaration.GetNameDocumentRange(),
-                GetLensText(tightClassCohesion),
-                GetMoreText(tightClassCohesion),
-                GetMoreText(tightClassCohesion),
-                provider,
-                declaration.DeclaredElement, null)
+        public CohesionCodeInsightHighlight(ITypeMemberDeclaration declaration, TightClassCohesion tightClassCohesion, ICodeInsightsProvider provider)
+            : base(declaration.GetNameDocumentRange(), GetLensText(tightClassCohesion), GetMoreText(tightClassCohesion), GetMoreText(tightClassCohesion), provider, declaration.DeclaredElement, null)
         {
         }
     }
