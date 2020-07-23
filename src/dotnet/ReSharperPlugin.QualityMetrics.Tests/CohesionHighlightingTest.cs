@@ -20,5 +20,17 @@ namespace ReSharperPlugin.QualityMetrics.Tests
         {
             DoNamedTest2();
         }
+
+        [Test]
+        public void TestClassWithLowTtc()
+        {
+            DoNamedTest2();
+        }
+
+        [Test]
+        public void TestClassWithOneMethod()
+        {
+            DoNamedTest2();
+        }
     }
 }

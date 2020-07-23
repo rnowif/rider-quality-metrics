@@ -15,7 +15,9 @@
 
   <ItemGroup>
     <Compile Remove="test/**/*" />
+    <Compile Include="test\data\CSharp\ClassWithLowTtc.cs" />
     <Compile Include="test\data\CSharp\ClassWithNoTtc.cs" />
+    <Compile Include="test\data\CSharp\ClassWithOneMethod.cs" />
   </ItemGroup>
 
 </Project>

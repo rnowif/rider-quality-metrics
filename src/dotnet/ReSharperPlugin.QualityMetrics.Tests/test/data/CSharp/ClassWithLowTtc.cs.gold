@@ -1,0 +1,22 @@
+﻿using System;
+
+public class |ClassWithLowTtc|(0)
+{
+    private void Method2(bool camelCase)
+    {
+        Console.WriteLine(camelCase);
+    }
+
+    public void Method1()
+    {
+        Method2(true);
+    }
+
+    public void Method3()
+    {
+        Method2(false);
+    }
+}
+
+---------------------------------------------------------
+(0): ReSharper Warning: Class 'ClassWithLowTtc' has a cohesion (TCC) of 0.67
